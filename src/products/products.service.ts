@@ -7,7 +7,15 @@ export class ProductsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createProductDto: Prisma.ProductCreateInput) {
-    return this.databaseService.product.create({ data: createProductDto });
+    console.log(createProductDto);
+  return this.databaseService.product.create({
+    data: createProductDto,
+    include: {
+      description: true,
+      reviews: true,
+      tags: true,
+    },
+  });
   }
 
   async findAll() {
